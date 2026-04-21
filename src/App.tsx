@@ -35,6 +35,11 @@ function App() {
     setNotes(prev => prev.filter(n => n.id !== id));
   };
 
+  const handleUpdateNote = async (id: string, text: string) => {
+    const updated = await api.updateNote(id, text);
+    setNotes(prev => prev.map(n => n.id === id ? updated : n));
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
       <main className="max-w-3xl mx-auto px-6 py-12 md:py-20">
@@ -42,7 +47,7 @@ function App() {
           <div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 flex items-center gap-3">
               <Library className="text-indigo-400" size={40} />
-              Notes Hub
+              Notes
             </h1>
             <p className="text-slate-400 mt-2 text-lg">Capture sua ideias instantaneamente.</p>
           </div>
@@ -71,7 +76,7 @@ function App() {
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 items-start">
               {notes.map(note => (
-                <NoteCard key={note.id} note={note} onDelete={handleDeleteNote} />
+                <NoteCard key={note.id} note={note} onDelete={handleDeleteNote} onUpdate={handleUpdateNote} />
               ))}
             </div>
           )}
