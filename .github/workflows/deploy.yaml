@@ -14,7 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
